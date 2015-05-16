@@ -231,7 +231,7 @@ def Run_Huang_Equil(In_File, Data_File, Pair_Table, Restart_Out, Dump = 'None', 
     File.write('write_restart %s\n' % Restart_Out)
     File.close()
     
-    os.system('mpiexec -np 8 lammps -in %s' % In_File )
+    os.system('mpiexec -np %s %s -in %s' % (Huang.cores,Huang.lammps,In_File))
     
     return
     
@@ -293,7 +293,7 @@ def EquilibrateNPT( In_File, Restart_In, Restart_Out, Dump = 'none', Num_Steps =
     File.write('write_restart %s\n' % Restart_Out )
     File.close()
     
-    os.system('mpiexec -np 8 lammps -in %s' % In_File)
+    os.system('mpiexec -np %s %s -in %s' % (Huang.cores,Huang.lammps,In_File))
     
     return
 
@@ -407,7 +407,7 @@ def Calculate_LP( In_FILE, Restart_In, Restart_out, Num_Steps=10000, Time_Step =
     File.write('write_restart %s\n' % Restart_out)
     
     File.close()
-    os.system('mpiexec -np 8 lammps -in %s' % In_FILE)
+    os.system('mpiexec -np %s %s -in %s' % (Huang.cores,Huang.lammps,In_FILE))
     
     N = Huang.NumChains*Huang.ChainLength
     T = Num_Steps 
@@ -491,8 +491,7 @@ def Strain(In_File, Restart_In, Restart_Out, Stress_Strain_File , Dump = 'none',
     File.write('unfix 2\n')
     File.close()
     
-    os.system('mpiexec -np 8 lammps -in %s' % In_File)
-    return
+    os.system('mpiexec -np %s %s -in %s' % (Huang.cores,Huang.lammps,In_File))
     
     
     

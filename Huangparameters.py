@@ -6,6 +6,8 @@ Huang Parameter File
 """
 
 import numpy as np
+import glob
+import multiprocessing
 
 Avogadro = 6.0221413e23 # Particles per mole
 Kb = 0.0019872041 # Kcal/mol/K
@@ -58,9 +60,8 @@ P1P1P2P3 = [ 0.2849, -.4701, -.0475, 0.1486, 0.1121]
 P3P2P1P1 = [ .0227, .2109, .4953, .0094, -.0727]
 P2P1P1P2OPT = [ 0.55509257, 0.38837346,  0.52557038,  0.04405308, -0.68564385]
 
+cores = multiprocessing.cpu_count()
 
-
-
-
-
-
+lmp = glob.glob('/usr/local/bin/lmp*')
+lmp1 = [x for y in lmp for x in y.split("/")]
+lammps = lmp1[len(lmp1) - 1]
