@@ -10,6 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import os
+import math
 
 import PolyModelFunctionsHuang as poly
 import Huangparameters as Huang
@@ -25,7 +26,9 @@ def main():
 
     for x in range(0,5):
         Huang.ChainLength *= 2
-        print Huang.ChainLength 
+        Huang.NumChains = int(math.sqrt(Huang.ChainLength)*70.6+1)
+        print "Chain Length: %s" % Huang.ChainLength
+        print "Number of Chains: %s" % Huang.NumChains 
         
         PDF, CDF = poly.Gen_PDF_CDF_Multi(Huang.P1P1P1P1, Huang.Beta)
         

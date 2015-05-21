@@ -8,6 +8,7 @@ Huang Parameter File
 import numpy as np
 import glob
 import multiprocessing
+from sys import platform as _platform
 
 Avogadro = 6.0221413e23 # Particles per mole
 Kb = 0.0019872041 # Kcal/mol/K
@@ -16,7 +17,8 @@ Beta = 1.0/(T*Kb)
 
 ChainLength = 5
 
-NumChains = 100
+NumChains = 0
+
 NumPCBM = 0
 NumTotal = NumChains*ChainLength + NumPCBM
 
@@ -62,6 +64,10 @@ P2P1P1P2OPT = [ 0.55509257, 0.38837346,  0.52557038,  0.04405308, -0.68564385]
 
 cores = multiprocessing.cpu_count()
 
-lmp = glob.glob('/usr/local/bin/lmp*')
-lmp1 = [x for y in lmp for x in y.split("/")]
-lammps = lmp1[len(lmp1) - 1]
+if _platform == "darwin":
+   lammps = "lammps"
+
+elif _platform == "linux" or _platform == "linux2":
+   lmp = glob.glob('/usr/local/bin/lmp*')
+   lmp1 = [x for y in lmp for x in y.split("/")]
+   lammps = lmp1[len(lmp1) - 1]
